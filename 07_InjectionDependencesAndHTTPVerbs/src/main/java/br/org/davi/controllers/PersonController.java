@@ -4,10 +4,7 @@ import br.org.davi.model.Person;
 import br.org.davi.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
@@ -29,4 +26,23 @@ public class PersonController{
     public List<Person> findAll(){
         return service.findAll();
     }
+    @RequestMapping(method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE/*indica que produz json*/,
+            consumes = MediaType.APPLICATION_JSON_VALUE/*indica que consome json*/)
+    public Person create(@RequestBody Person person) throws Exception{
+        return service.create(person);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT,
+            produces = MediaType.APPLICATION_JSON_VALUE/*indica que produz json*/,
+            consumes = MediaType.APPLICATION_JSON_VALUE/*indica que consome json*/)
+    public Person update(@RequestBody Person person) throws Exception{
+        return service.update(person);
+    }
+
+    @RequestMapping(value = "/{id}",method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void delete(@PathVariable(value = "id") String id){
+        service.delete(id);
+    }
+
 }
