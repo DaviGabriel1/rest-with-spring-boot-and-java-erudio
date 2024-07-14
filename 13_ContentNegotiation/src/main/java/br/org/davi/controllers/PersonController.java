@@ -19,23 +19,23 @@ public class PersonController{
 
     private final AtomicLong counter = new AtomicLong();
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE/*indica que produz json*/)
+    @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE,"application/x-yaml"}/*indica que produz json*/)
     public PersonVO findById(@PathVariable(value = "id") Long id) throws Exception{
         return service.findById(id);
     }
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE/*indica que produz json*/)
+    @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE/*indica que produz json*/, MediaType.APPLICATION_XML_VALUE,"application/x-yaml"})
     public List<PersonVO> findAll(){
         return service.findAll();
     }
 
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE/*indica que produz json*/,
-            consumes = MediaType.APPLICATION_JSON_VALUE/*indica que consome json*/)
+    @PostMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE,"application/x-yaml"}/*indica que produz json*/,
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE,"application/x-yaml"}/*indica que consome json*/)
     public PersonVO create(@RequestBody PersonVO person) throws Exception{
         return service.create(person);
     }
 
-    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE/*indica que produz json*/,
-            consumes = MediaType.APPLICATION_JSON_VALUE/*indica que consome json*/)
+    @PutMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE,"application/x-yaml"}/*indica que produz json*/,
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE,"application/x-yaml"}/*indica que consome json*/)
     public PersonVO update(@RequestBody PersonVO person) throws Exception{
         return service.update(person);
     }
