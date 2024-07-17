@@ -1,6 +1,7 @@
 package br.org.davi.exceptions.handler;
 
 import br.org.davi.exceptions.ExceptionResponse;
+import br.org.davi.exceptions.RequiredObjectIsNullException;
 import br.org.davi.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.time.Instant;
 import java.util.Date;
 
 @ControllerAdvice
@@ -30,6 +32,12 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),e.getMessage()
                 , request.getDescription(false)); // informações da exceção
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(RequiredObjectIsNullException.class)
+    public final ResponseEntity<?> handlerBadRequestExceptions(Exception e, WebRequest wb){
+        ExceptionResponse er = new ExceptionResponse(new Date(),e.getMessage(),wb.getDescription(false));
+        return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
     }
 
 }

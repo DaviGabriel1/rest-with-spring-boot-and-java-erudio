@@ -13,6 +13,7 @@ import java.util.Objects;
 public class PersonVO extends RepresentationModel<PersonVO> implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @JsonProperty("id")
     @Mapping("id") //diz que é um id para o mapper
     private Long key;
     @JsonProperty("first_name")
